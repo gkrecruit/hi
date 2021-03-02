@@ -1,0 +1,188 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New GameTab</title>
+    <link rel='stylesheet' href='..\css\css.css'>
+</head>
+<style>
+    body {
+
+        background-color: none;
+        background-attachment: none;
+        background-image: none;
+        height: 100%;
+        overflow-y: hidden;
+    }
+
+    #myUL {
+        background-color: #222;
+        width: 12vw;
+        float: left;
+        text-decoration: none;
+        border: none;
+        margin: 0;
+        height: 100vh;
+        list-style: none;
+        list-style-type: none;
+        padding-inline-start: 1vw;
+        overflow: scroll;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #myFrame {
+        top: 0;
+        right: 0;
+        border: 0;
+        width: 88vw;
+        height: 100vh;
+        display: flex;
+        background-color: #FBDA61;
+        background-image: linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);
+        background-attachment: fixed;
+        float: right;
+        position: absolute;
+    }
+
+    a {
+        text-decoration: none;
+        display: block;
+        width: 12vw;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        font-size: 17px;
+        color: #FFF;
+        border-top: solid #333 1px;
+        border-bottom: solid #333 1px;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: #cc0052;
+    }
+
+    .list {
+        left: 0;
+        top: 0;
+        position: absolute;
+        background-color: #222;
+        height: 100vh;
+        width: 12vw;
+        float: left;
+        height: fit-content;
+    }
+
+    #myUL li a {
+        margin-top: -1px;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+    }
+
+    #myInput {
+        background-color: #222;
+        width: 12vw;
+        padding-left: 1vw;
+        float: left;
+        text-decoration: none;
+        color: #FFF;
+        font-family: "Roboto";
+        border: none;
+        margin: 0;
+        height: 6vh;
+        list-style: none;
+        list-style-type: none;
+        overflow: scroll;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+</style>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script>
+        // sorts items. i will minify this code later
+        $(document).ready(function () {
+            var list, i, switching, b, shouldSwitch;
+            list = document.getElementById("myUL");
+            switching = true;
+            while (switching) {
+                switching = false;
+                b = list.getElementsByTagName("li");
+                for (i = 0; i < b.length - 1; i++) {
+                    shouldSwitch = false;
+                    if (b[i].innerText.toLowerCase() > b[i + 1].innerText.toLowerCase()) {
+                        shouldSwitch = true;
+                        break
+                    }
+                }
+                if (shouldSwitch) {
+                    b[i].parentNode.insertBefore(b[i + 1], b[i]);
+                    switching = true
+                }
+            }
+        });
+        // this makes the search box work
+        function search() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = ""
+                } else {
+                    li[i].style.display = "none"
+                }
+            }
+        }
+    </script>
+
+    <div class="list">
+        <input type="text" id="myInput" onkeyup="search()" placeholder="Search for Games..">
+        <ul id="myUL">
+            <li><a onClick="m.src='g/mc/index.html';">Minecraft ClassiCube</a></li>
+            <li><a onClick="m.src='g/sm/index.html';">Super Mario 64</a></li>
+            <li><a onClick="m.src='g/2048/index.html';">2048</a></li>
+            <li><a onClick="m.src='g/hextris/index.html';">Hextris</a></li>
+            <li><a onClick="m.src='g/cookies/index.html';">Cookie Clicker</a></li>
+            <li><a onClick="m.src='g/flappybird/index.html';">Flappy Bird</a></li>
+            <li><a onClick="m.src='g/nes/index.html';">NES Emulator</a></li>
+            <li><a onClick="m.src='g/gba/index.html';">GBA Emulator</a></li>
+            <li><a onClick="m.src='/q.html';">Quake 3 Arena</a></li>
+            <li><a onClick="m.src='g/pacman/index.html';">Pacman</a></li>
+            <li><a onClick="m.src='g/astray/index.html';">Astray</a></li>
+            <li><a onClick="m.src='g/towermaster/index.html';">Towermaster</a></li>
+            <li><a onClick="m.src='g/spaceinvaders/index.html';">Space Invaders</a></li>
+            <li><a onClick="m.src='g/radius-raid/index.html';">Radius Raid</a></li>
+
+        </ul>
+    </div>
+    <iframe id="myFrame" src="/g/index.html" frameborder="0"></iframe>
+    <script>var m = document.getElementById('myFrame');</script>
+</body>
+
+</html>
